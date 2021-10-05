@@ -1,0 +1,30 @@
+syntax = "proto3";
+package pb;
+option go_package = ".;pb_gen";
+service CodeSim {
+   rpc HelloWorld(CodeSimHelloWorldRequest) returns (CodeSimHelloWorldResponse) {}
+   rpc Search(CodeSimSearchRequest) returns (CodeSimSearchResponse) {}
+}
+
+message CodeSimHelloWorldRequest {
+   string hello_text = 1;
+}
+
+message CodeSimHelloWorldResponse {
+   string thanks_text = 1;
+}
+
+message CodeSimSearchRequest {
+   string match_text = 1;
+   bool match_text_is_code = 2;
+   enum CodeType {
+      python = 0;
+   }
+   CodeType code_type = 3;
+   int32 limit = 4;
+   int32 offset = 5;
+}
+
+message CodeSimSearchResponse {
+   repeated string file_unique_path = 1;
+}
