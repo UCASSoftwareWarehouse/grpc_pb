@@ -4,10 +4,21 @@ option go_package = ".;pb_gen";
 service CodeSim {
    rpc HelloWorld(CodeSimHelloWorldRequest) returns (CodeSimHelloWorldResponse) {}
    rpc Search(CodeSimSearchRequest) returns (CodeSimSearchResponse) {}
+   rpc Upload(stream CodeSimUploadRequest) returns (CodeSimUploadResponse) {}
 }
 
 message CodeSimHelloWorldRequest {
    string hello_text = 1;
+}
+
+message CodeSimProject {
+   string project_name = 1;
+   string tag = 2;
+}
+
+message CodeSimProjectFile {
+   CodeSimProject project_info = 1;
+   string relative_path = 2;
 }
 
 message CodeSimHelloWorldResponse {
@@ -18,7 +29,8 @@ message CodeSimSearchRequest {
    string match_text = 1;
    bool match_text_is_code = 2;
    enum CodeType {
-      python = 0;
+      unknown = 0;
+      python = 1;
    }
    CodeType code_type = 3;
    int32 limit = 4;
@@ -26,5 +38,29 @@ message CodeSimSearchRequest {
 }
 
 message CodeSimSearchResponse {
-   repeated string file_unique_path = 1;
+   repeated CodeSimProjectFile files = 1;
+}
+
+enum CodeSimUploadFileType {
+   file_type_unknown = 0;
+   zip = 1;
+}
+
+message CodeSimUploadRequest {
+   CodeSimProject project = 1;
+   CodeSimUploadFileType file_type = 2;
+   string totalSize = 3;
+   string received = 4;
+   bytes content_chunk = 5;
+}
+
+enum CodeSimUploadStatus {
+   status_unknown = 0;
+   OK = 1;
+   fail = 2;
+}
+
+message CodeSimUploadResponse {
+   string message = 1;
+   CodeSimUploadStatus status = 2;
 }
