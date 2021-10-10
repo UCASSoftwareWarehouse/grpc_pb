@@ -19,6 +19,7 @@ message CodeSimProject {
 message CodeSimProjectFile {
    CodeSimProject project_info = 1;
    string relative_path = 2;
+   bytes content = 3;
 }
 
 message CodeSimHelloWorldResponse {
@@ -27,14 +28,15 @@ message CodeSimHelloWorldResponse {
 
 message CodeSimSearchRequest {
    string match_text = 1;
-   bool match_text_is_code = 2;
    enum CodeType {
       unknown = 0;
       python = 1;
+      golang = 2;
    }
-   CodeType code_type = 3;
-   int32 limit = 4;
-   int32 offset = 5;
+   CodeType code_type = 2; // code_type 为unknown时，按照plain-text查询
+   int32 limit = 3;
+   int32 offset = 4;
+   bool with_source = 5;
 }
 
 message CodeSimSearchResponse {
