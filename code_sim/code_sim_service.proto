@@ -44,8 +44,8 @@ message CodeSimSearchResponse {
 }
 
 enum CodeSimUploadFileType {
-   file_type_unknown = 0;
-   zip = 1;
+   code_sim_upload_file_type_unknown = 0;
+   code_sim_upload_file_type_zip = 1;
 }
 
 message CodeSimUploadRequest {
@@ -57,9 +57,9 @@ message CodeSimUploadRequest {
 }
 
 enum CodeSimUploadStatus {
-   status_unknown = 0;
-   OK = 1;
-   fail = 2;
+   code_sim_upload_status_unknown = 0;
+   code_sim_upload_status_OK = 1;
+   code_sim_upload_status_fail = 2;
 }
 
 message CodeSimUploadResponse {
