@@ -33,7 +33,7 @@ message CodeSimSearchRequest {
       python = 1;
       golang = 2;
    }
-   CodeType code_type = 2; // code_type 为unknown时，按照plain-text查询
+   repeated CodeType code_types = 2; // code_type 为unknown时，按照plain-text查询
    int32 limit = 3;
    int32 offset = 4;
    bool with_source = 5;
